@@ -1,6 +1,6 @@
 {
   "name": "slashes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Add or strip backslashes.",
   "main": "slashes.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ChrisAckerman/node-slashes"
+    "url": "git://github.com:ChrisAckerman/node-slashes"
   },
   "keywords": [
     "add",
