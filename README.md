@@ -71,4 +71,4 @@ slashes.strip(string, 2);
 slashes.strip(slashes.strip(string));
 ```
 
-Note that in JavaScript, "\0" and "\u0000" are identical. The `add` method will convert both to `"\\0"`.
+Note that in JavaScript, `"\0"` and `"\u0000"` are identical. The `add` method will convert both to `"\\0"`.
