@@ -7,7 +7,7 @@ exports.add = function add(str, count)
 
 	while (count > 0) {
 		--count;
-		str = str.replace(/[\\'"\0]/g, add_replace);
+		str = str.replace(/[\\'"\0\n]/g, add_replace);
 	}
 
 	return str;
@@ -30,6 +30,8 @@ function add_replace(match)
 {
 	if (match === "\0") {
 		return "\\0";
+	} else if (match === "\n") {
+		return "\\n";
 	} else {
 		return "\\" + match;
 	}
@@ -39,6 +41,8 @@ function strip_replace(match, g1)
 {
 	if (g1 === "0") {
 		return "\0";
+	} else if (g1 === "n") {
+		return "\n";
 	} else {
 		return g1;
 	}

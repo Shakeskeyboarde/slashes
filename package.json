@@ -1,6 +1,6 @@
 {
   "name": "slashes",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Add or strip backslashes.",
   "main": "slashes.js",
   "scripts": {
