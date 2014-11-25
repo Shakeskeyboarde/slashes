@@ -1,0 +1,29 @@
+{
+  "name": "slashes",
+  "version": "1.0.0",
+  "description": "Add or strip backslashes.",
+  "main": "slashes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ChrisAckerman/node-slashes"
+  },
+  "keywords": [
+    "add",
+    "strip",
+    "remove",
+    "slash",
+    "backslash",
+    "escape",
+    "unescape",
+    "php"
+  ],
+  "author": "Chris Ackerman <bluejeansandrain@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChrisAckerman/node-slashes/issues"
+  },
+  "homepage": "https://github.com/ChrisAckerman/node-slashes"
+}
