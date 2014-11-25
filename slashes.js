@@ -20,7 +20,7 @@ exports.strip = function strip(str, count)
 
 	while (count > 0) {
 		--count;
-		str = str.replace(/\\(.)/g, strip_replace);
+		str = str.replace(/\\(.|$)/g, strip_replace);
 	}
 
 	return str;

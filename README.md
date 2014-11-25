@@ -5,6 +5,13 @@ Add or strip backslashes.
 Provides two methods, `add` and `strip` which are identical to PHP's `addslashes` and `stripslashes` functions
 respectively.
 
+The `add` method will prefix backslash (`\`), double quote (`"`), and single quote (`'`) characters with
+backslashes. Null (`\0`) characters will be replaced with backslash zero `"\\0"`.
+
+The `strip` method replaces all sequences of two characters that start with a backslash, with the second character in
+the sequence. There are two caveats. A single non-escaped slash at the end of the string will be removed. Backslash
+zero `"\\0"` will become a null (`\0`) character.
+
 ## Install
 
 ```sh
@@ -64,4 +71,4 @@ slashes.strip(string, 2);
 slashes.strip(slashes.strip(string));
 ```
 
-Note that in JavaScript, "\0" and "\u0000" are identical. The `add` method will convert both to "\\0".
+Note that in JavaScript, "\0" and "\u0000" are identical. The `add` method will convert both to `"\\0"`.
