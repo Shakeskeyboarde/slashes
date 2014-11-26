@@ -14,9 +14,7 @@ The `strip` method replaces all sequences of two characters that start with a ba
 the sequence. There are three caveats. A single non-escaped slash at the end of the string will be removed. Backslash
 zero `"\\0"` will become a null (`\0`) character. Backslash 'n' `"\\n"` will become a newline (`\n`) character.
 
-
-The goal of this utility is to make a string safe for concatenation or injection into JavaScript source. The following
-snippet would throw an exception.
+The goal of this utility is to make a string safe for concatenation or injection into JavaScript source.
 
 ```js
 var foo = "\\bar";
@@ -24,9 +22,9 @@ var source = "console.log('" + bar + "');";
 eval(source);
 ```
 
-You might expect that to output `\bar` but instead you will see `ar`, because the source string ends up being
-`console.log('\bar');` which is interpreted as starting with an escaped "b" rather than a backslash and then a "b". It
-can be fixed using he `add` method.
+You might expect the above snippet to output `\bar` but instead you will see `ar`, because the source string ends up
+being `console.log('\bar');` which is interpreted as starting with an escaped "b" rather than a backslash and then a
+"b". It can be fixed using the `add` method.
 
 ```js
 var foo = "\\bar";
