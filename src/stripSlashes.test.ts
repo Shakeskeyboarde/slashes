@@ -1,4 +1,4 @@
-import { SINGLE_CHAR_ESCAPES } from './constants';
+import { SINGLE_CHAR_ESCAPES } from './escapes';
 import { strip, stripSlashes } from './stripSlashes';
 
 describe('should strip slashes N times.', () => {
@@ -36,6 +36,10 @@ describe('it should unescape unicode and hex escape sequences.', () => {
       expect(stripSlashes(from)).toBe(to);
     });
   });
+
+  it('should just remove the slash for invalid unicode code points.', () => {
+    expect(stripSlashes('\\u{10ffff}\\u{110000}')).toBe('􏿿u{110000}');
+  });
 });
 
 describe('should not escape if the escape code is disabled.', () => {
@@ -45,7 +49,7 @@ describe('should not escape if the escape code is disabled.', () => {
   cases.forEach(([option, char]) => {
     it(`should honor the ${option} option.`, () => {
       expect(stripSlashes(input, { [option]: false })).not.toContain(char);
-      expect(stripSlashes(input, { defaultValue: false, [option]: true })).toContain(char);
+      expect(stripSlashes(input, { defaultEscapeValue: false, [option]: true })).toContain(char);
     });
   });
 });

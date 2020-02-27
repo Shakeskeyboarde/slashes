@@ -1,9 +1,9 @@
-import { CHAR_TO_ESCAPE } from './constants';
+import { CHAR_TO_ESCAPE } from './escapes';
 
 export interface IAddSlashesOptions {
   /**
-   * Number of times to add slashes. The actual number of slashes that will
-   * precede each escaped character is `2^(count-1)`. Defaults to 1.
+   * Number of times to add slashes. Equivalent to invoking the function
+   * `count` times. Defaults to 1.
    */
   count?: number;
 
@@ -61,8 +61,8 @@ export function addSlashes(str: string, characters?: string): string;
  * UTF-16 characters._
  *
  * @param str String to add slashes to.
- * @param count Number of times to add slashes. The actual number of slashes
- * that will precede each escaped character is `2^(count-1)`. Defaults to 1.
+ * @param count Number of times to add slashes. Equivalent to invoking the
+ * function `count` times. Defaults to 1.
  * @param characters Characters to escape. Defaults to all single character
  * escape sequence characters (i.e. `\b`, `\f`, `\n`, `\r`, `\t`, `\v`, `\0`,
  * `\'`, `\"`, and `\\`).
@@ -86,43 +86,34 @@ export function addSlashes(
     }
   }
 
-  count = Math.max(1, count >> 0);
-
   const rx = new RegExp(`[${characters.replace(/[\]\\^]/g, '\\$&')}]`, 'g');
-  str = str.replace(rx, char => {
-    const escape = CHAR_TO_ESCAPE.get(char);
 
-    if (escape) {
-      return escape;
-    }
+  for (let i = Math.max(1, count >> 0); i > 0; --i) {
+    str = str.replace(rx, char => {
+      const escape = CHAR_TO_ESCAPE.get(char);
 
-    const charCode = char.charCodeAt(0);
-
-    if (charCode >= 0xd800 && charCode <= 0xf8ff) {
-      const hex = charCode.toString(16);
-      return `\\u${hex}`;
-    } else if (escapeNonAscii && charCode > 0x7f) {
-      let hex = charCode.toString(16);
-
-      if (charCode <= 0xff) {
-        return `\\x${hex}`;
-      } else {
-        while (hex.length < 4) hex = `0${hex}`;
-        return `\\u${hex}`;
+      if (escape) {
+        return escape;
       }
-    }
 
-    return `\\${char}`;
-  });
+      const charCode = char.charCodeAt(0);
 
-  if (count > 1) {
-    let replacement = `\\`;
+      if (charCode >= 0xd800 && charCode <= 0xf8ff) {
+        const hex = charCode.toString(16);
+        return `\\u${hex}`;
+      } else if (escapeNonAscii && charCode > 0x7f) {
+        let hex = charCode.toString(16);
 
-    do {
-      replacement = `${replacement}${replacement}`;
-    } while (--count > 1);
+        if (charCode <= 0xff) {
+          return `\\x${hex}`;
+        } else {
+          while (hex.length < 4) hex = `0${hex}`;
+          return `\\u${hex}`;
+        }
+      }
 
-    str = str.replace(/\\/g, replacement);
+      return `\\${char}`;
+    });
   }
 
   return str;
