@@ -128,3 +128,14 @@ A `stripSlashes` overload which accepts an options object.
   - `uEs6` True to convert `"\\u{#...}"` escapes (where `#...` is a hex unicode code point) into unicode characters. Defaults to `u`.
 
 If an escape option is false, then the corresponding escape sequence will be treated like any other backslash before a non-escape character. The backslash will be removed, and all trailing characters left untouched.
+
+```ts
+stripSlashes(`\\\\tfoo\\\\nbar`, {
+  // Strip slashes twice.
+  count: 2,
+  // All escape sequences are disabled by default.
+  defaultEscapeValue: false,
+  // Enable newlines escapes explicitly.
+  n: true
+}) === `tfoo\nbar`; // true
+```
