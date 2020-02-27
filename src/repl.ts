@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import repl from 'repl';
 
 import * as slashes from './';
