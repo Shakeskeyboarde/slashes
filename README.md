@@ -50,7 +50,7 @@ An `addSlashes` overload which returns a string with _only_ the characters in th
 addSlashes('foo\nbar', 'oa') === 'f\\o\\o\nb\\ar'; // true
 ```
 
-Characters in the unicode supplementary range (code points > 65535) are _always_ converted to a unicode escape surrogate pairs. This is because Javascript strings are UTF-16, which actually sees these as two characters (`"😊".length === 2`). So, using 😊 in the `characters` string is actually setting two escapable characters which are _not valid individually._ If the "😊" character were not converted to two unicode escape sequences, you would end up with a string containing invalid characters which would print like this: `"\\�\\�"`, instead of valid characters: `"\\ud83d\\ude0a"`.
+Characters in the unicode supplementary range (code points > 65535) are _always_ converted to a unicode escape surrogate pairs. This is because Javascript strings are UTF-16, which actually sees these as two characters (`"😊".length === 2`). So, using 😊 in the `characters` string is actually setting two escapable characters which are _not valid individually._ If the "😊" character were not escaped to two unicode escape sequences, you would end up with a string containing invalid characters which would print like this: `"\\�\\�"`, instead of valid characters: `"\\ud83d\\ude0a"`.
 
 ```ts
 addSlashes('foo😊bar', '😊') === 'foo\\ud83d\\ude0abar'; // true
