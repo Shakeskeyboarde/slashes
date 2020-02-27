@@ -1,7 +1,7 @@
 {
   "name": "slashes",
   "description": "Add or strip backslashes.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "ISC",
   "author": {
     "name": "Chris Ackerman",
@@ -33,6 +33,7 @@
     "eslint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --ignore-pattern \"/__demo__/\" --no-error-on-unmatched-pattern",
     "jest": "cross-env NODE_ENV=test jest --passWithNoTests",
     "prepack": "run-script build",
+    "prepublishOnly": "run-script test",
     "reformat": "run-script eslint --fix --quiet",
     "tsc": "tsc"
   },
