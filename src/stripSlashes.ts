@@ -1,3 +1,4 @@
+import { deprecated } from './deprecated';
 import { getSingleCharEscapes } from './escapes';
 
 export interface IStripSlashesOptions {
@@ -163,5 +164,7 @@ export function stripSlashes(str: string, countOrOptions?: number | IStripSlashe
  * escape sequences (`"\0"`). Other slashes will not consume any trailing
  * characters (e.g. `"\\r"` becomes `"r"`, _not a carriage return_).
  */
-export const strip = (str: string, count?: number) =>
-  stripSlashes(str, { count, defaultEscapeValue: false, n: true, '0': true });
+export const strip = (str: string, count?: number): string => {
+  deprecated('The strip() function is deprecated and should be replaced with stripSlashes().');
+  return stripSlashes(str, { count, defaultEscapeValue: false, n: true, '0': true });
+};

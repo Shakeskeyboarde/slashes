@@ -22,6 +22,7 @@
     "scss/"
   ],
   "scripts": {
+    "start": "run-script build:commonjs && node ./lib-commonjs/repl.js",
     "test": "run-script eslint && run-script tsc --noEmit && run-script jest",
     "clean": "del-cli lib lib-commonjs dist css coverage && jest --clearCache",
     "build": "run-script clean && run-script build:js && run-script build:commonjs && run-script build:d.ts && run-script build:cleanup",

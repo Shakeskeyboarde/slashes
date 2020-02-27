@@ -1,3 +1,4 @@
+import { deprecated } from './deprecated';
 import { CHAR_TO_ESCAPE } from './escapes';
 
 export interface IAddSlashesOptions {
@@ -126,4 +127,7 @@ export function addSlashes(
  * carriage returns (`"\r"`), nulls (`"\0"`), single quotes (`"'"`), double
  * quotes (`"\""`), and backslashes (`"\\"`).
  */
-export const add = (str: string, count?: number) => addSlashes(str, count, `\n\0'"\\`);
+export const add = (str: string, count?: number): string => {
+  deprecated('The add() function is deprecated and should be replaced with addSlashes().');
+  return addSlashes(str, count, `\n\0'"\\`);
+};

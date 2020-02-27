@@ -15,6 +15,8 @@ addSlashes('foo\nbar') === 'foo\\nbar'; // true
 stripSlashes('foo\\nbar') === 'foo\nbar'; // true
 ```
 
+You can also experiment using a pre-configured REPL by running the `npm start` command.
+
 # API
 
 ## Adding Slashes
@@ -59,8 +61,8 @@ addSlashes('foo😊bar', '😊') === 'foo\\ud83d\\ude0abar'; // true
 An `addSlashes` overload which returns a string with `count` layers of slashes added to the default escape character set. This is the same as recursively invoking this function `count` times.
 
 ```ts
-addSlashes('"foo\nbar"', 2) === '\\\\\\"\\\\n\\\\\\"'; // true
-addSlashes(addSlashes('"foo\nbar"')) === '\\\\\\"\\\\n\\\\\\"'; // true
+addSlashes('"foo\nbar"', 2) === '\\\\\\"foo\\\\nbar\\\\\\"'; // true
+addSlashes(addSlashes('"foo\nbar"')) === '\\\\\\"foo\\\\nbar\\\\\\"'; // true
 addSlashes('"foo\nbar"', 2) === addSlashes(addSlashes('"foo\nbar"')); // true
 ```
 
@@ -78,7 +80,7 @@ An `addSlashes` overload which accepts an options object.
   - `escapeNonAscii` When true, all non-ASCII characters (unicode code points > 127) will be converted to `\x` or `\u` escape sequences.
 
 ```ts
-addSlashes('†©', { count: 2, characters: '†©', escapeNonAscii: true }) === '\\\\u2020\\\\xa9'; // true
+addSlashes('†©', { count: 2, characters: '†©\\', escapeNonAscii: true }) === '\\\\u2020\\\\xa9'; // true
 ```
 
 ## Stripping Slashes
