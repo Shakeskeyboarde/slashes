@@ -2,7 +2,7 @@
 
 Add or strip backslashes.
 
-If you were previously using v1, see the [migration](./MIGRATION.md) document for guidance on switching to v2.
+If you were previously using v1, see the [migration](https://github.com/ChrisAckerman/slashes/blob/master/MIGRATION.md) document for guidance on switching to v2.
 
 # Getting Started
 
