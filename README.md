@@ -11,8 +11,8 @@ import { addSlashes, stripSlashes } from 'slashes';
 // Or using CommonJS require.
 const { addSlashes, stripSlashes } = require('slashes');
 
-addSlashes('foo\nbar') === 'foo\\nbar'; // true
-stripSlashes('foo\\nbar') === 'foo\nbar'; // true
+addSlashes(`foo\nbar`) === `foo\\nbar`; // true
+stripSlashes(`foo\\nbar`) === `foo\nbar`; // true
 ```
 
 You can also experiment using a pre-configured REPL by running the `npm start` command.
@@ -47,13 +47,13 @@ addSlashes(`\b\f\n\r\t\v\0'"\\`) === `\\b\\f\\n\\r\\t\\v\\0\\'\\"\\\\`; // true
 An `addSlashes` overload which returns a string with _only_ the characters in the `characters` string escaped. The explicit characters completely override the default character set. The default characters string is: `"\b\f\n\r\t\v\0'\"\\"`.
 
 ```ts
-addSlashes('foo\nbar', 'oa') === 'f\\o\\o\nb\\ar'; // true
+addSlashes(`foo\nbar`, `oa`) === `f\\o\\o\nb\\ar`; // true
 ```
 
 Characters in the unicode supplementary range (code points > 65535) are _always_ converted to a unicode escape surrogate pairs. This is because Javascript strings are UTF-16, which actually sees these as two characters (`"😊".length === 2`). So, using 😊 in the `characters` string is actually setting two escapable characters which are _not valid individually._ If the "😊" character were not escaped to two unicode escape sequences, you would end up with a string containing invalid characters which would print like this: `"\\�\\�"`, instead of valid characters: `"\\ud83d\\ude0a"`.
 
 ```ts
-addSlashes('foo😊bar', '😊') === 'foo\\ud83d\\ude0abar'; // true
+addSlashes(`foo😊bar`, `😊`) === `foo\\ud83d\\ude0abar`; // true
 ```
 
 ### **Function** `addSlashes(str: string, count: number): string`
@@ -61,9 +61,9 @@ addSlashes('foo😊bar', '😊') === 'foo\\ud83d\\ude0abar'; // true
 An `addSlashes` overload which returns a string with `count` layers of slashes added to the default escape character set. This is the same as recursively invoking this function `count` times.
 
 ```ts
-addSlashes('"foo\nbar"', 2) === '\\\\\\"foo\\\\nbar\\\\\\"'; // true
-addSlashes(addSlashes('"foo\nbar"')) === '\\\\\\"foo\\\\nbar\\\\\\"'; // true
-addSlashes('"foo\nbar"', 2) === addSlashes(addSlashes('"foo\nbar"')); // true
+addSlashes(`"foo\nbar"`, 2) === `\\\\\\"foo\\\\nbar\\\\\\"`; // true
+addSlashes(addSlashes(`"foo\nbar"`)) === `\\\\\\"foo\\\\nbar\\\\\\"`; // true
+addSlashes(`"foo\nbar"`, 2) === addSlashes(addSlashes(`"foo\nbar"`)); // true
 ```
 
 ### **Function** `addSlashes(str: string, count: number, characters: string): string`
@@ -80,7 +80,7 @@ An `addSlashes` overload which accepts an options object.
   - `escapeNonAscii` When true, all non-ASCII characters (unicode code points > 127) will be converted to `\x` or `\u` escape sequences.
 
 ```ts
-addSlashes('†©', { count: 2, characters: '†©\\', escapeNonAscii: true }) === '\\\\u2020\\\\xa9'; // true
+addSlashes(`†©`, { count: 2, characters: `†©\\`, escapeNonAscii: true }) === `\\\\u2020\\\\xa9`; // true
 ```
 
 ## Stripping Slashes
