@@ -6,7 +6,7 @@
     "email": "chris@topher.land"
   },
   "license": "ISC",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "types": "lib/commonjs/index.d.ts",
   "module": "./lib/module/index.js",
   "main": "lib/commonjs/index.js",
@@ -18,7 +18,7 @@
   "sideEffects": false,
   "scripts": {
     "test": "del-cli out && tsc --noEmit && eslint --max-warnings=0 src && jest --no-cache",
-    "build": "del-cli lib && tsc -p tsconfig.build-commonjs.json && tsc -p tsconfig.build-module.json && tsc -p tsconfig.build-types.json",
+    "build": "del-cli lib && tsc -p tsconfig.build-commonjs.json && tsc -p tsconfig.build-module.json && tsc -p tsconfig.build-types.json && check-es-compat lib/commonjs",
     "clean": "del-cli lib out",
     "modernize": "npm-check-updates -u -x @types/node",
     "coveralls": "cat ./out/coverage/lcov.info | coveralls"
@@ -27,6 +27,7 @@
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@types/jest": "^27.4.1",
+    "check-es-compat": "^2.0.0",
     "coveralls": "^3.1.1",
     "del-cli": "^4.0.1",
     "eslint": "^8.14.0",

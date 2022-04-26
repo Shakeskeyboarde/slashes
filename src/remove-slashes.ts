@@ -34,7 +34,7 @@ const removeSlashes = (source: string, { getUnescaped = getUnescapedAny }: Remov
           result += sequence;
         }
       }
-    } catch {
+    } catch (_error) {
       result += escapedFallback;
     }
   }
