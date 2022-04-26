@@ -1,11 +1,16 @@
-import { getEscapedDefault } from './get-escaped-default';
+import { getEscapedAny } from './get-escaped-any';
+import { getEscapedJsonUnsafe } from './get-escaped-json-unsafe';
+import { type EscapeSequence } from './types/escape-sequence';
 
 type AddSlashesOptions = {
   /**
-   * Get the escaped string replacement for a character. Return `null` not
-   * leave the character unencoded.
+   * Indicate which characters should be encoded and how.
+   *
+   * - Return `false` to leave the character unencoded.
+   * - Return `true` to encode the character to its default escape sequence.
+   * - Return a string to provide a custom escape sequence.
    */
-  readonly getEscaped?: (char: string) => `\\${string}` | null;
+  readonly getEscaped?: (char: string) => EscapeSequence | boolean | '';
 };
 
 /**
@@ -26,7 +31,7 @@ type AddSlashesOptions = {
  * Use the `getEscaped` option to encode additional characters or to override
  * the default escapes.
  */
-const addSlashes = (str: string, { getEscaped = getEscapedDefault }: AddSlashesOptions = {}): string => {
+const addSlashes = (str: string, { getEscaped = getEscapedJsonUnsafe }: AddSlashesOptions = {}): string => {
   let result = '';
 
   for (const char of str) {
@@ -35,12 +40,14 @@ const addSlashes = (str: string, { getEscaped = getEscapedDefault }: AddSlashesO
       continue;
     }
 
-    const escape = getEscaped(char);
+    const escaped = getEscaped(char);
 
-    if (escape == null) {
+    if (!escaped) {
       result += char;
+    } else if (escaped === true) {
+      result += getEscapedAny(char);
     } else {
-      result += escape;
+      result += escaped;
     }
   }
 

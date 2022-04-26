@@ -20,7 +20,7 @@ removeSlashes(`foo\\nbar`); // "foo\nbar"
 
 ## Adding Slashes
 
-By default, `addSlashes` will escape the following characters.
+By default, `addSlashes` will escape the following JSON-unsafe characters.
 
 - Backspace (`\b`)
 - Form Feed (`\f`)
@@ -33,36 +33,29 @@ By default, `addSlashes` will escape the following characters.
 - Backslash (`\`)
 
 ```ts
-addSlashes(`\n`); // "\\n"
+const encoded = addSlashes(`\n`); // "\\n"
 ```
 
-This default character set is intended to create a value which is safe to "inject" into a JSON string literal as follows.
+This default character set is the characters which cannot be included in a JSON string literal.
 
 ```ts
 const jsonString = `{ "value": "${encoded}" }`;
 ```
 
-Additional escaping or overriding escapes can be configured using the `getEscaped` option.
+Escape encoding can be customized using the `getEscaped` option.
 
-The following example escapes the above characters with single letter escapes, and also encodes all multi-byte characters as ES5 Unicode escape sequences.
-
-```ts
-import { getEscapedDefault, getEscapedMultibyte } from 'slashes';
-
-addSlashes(`\n😊`, {
-  getEscaped: (char) => getEscapedDefault(char) ?? getEscapedMultibyte(char),
-}); // "\\n\\ud83d\\ude0a"
-```
-
-An ES6 Unicode Code Point escape function is also included.
+The following is the default, equivalent to not setting the `getEscaped` option.
 
 ```ts
-import { getEscapedDefault, getEscapedMultibyteES6 } from 'slashes';
+import { getEscapedJsonUnsafe } from 'slashes';
 
-addSlashes(`\n😊`, {
-  getEscaped: (char) => getEscapedDefault(char) ?? getEscapedMultibyteES6(char),
-}); // "\\n\\u{1f60a}"
+addSlashes(`\n`, { getEscaped: getEscapedJsonUnsafe }); // "\\n"
 ```
+
+Included `getEscaped` implementations:
+
+- `getEscapedJsonUnsafe` - (Default) Encode characters which cannot be used between quotes in a JSON string.
+- `getEscapedAny` - Encode _ANY_ character to a single letter (eg. `\n`) or an ES5 Unicode (eg. `\u0100`) escape sequence.
 
 ## Removing Slashes
 
@@ -85,10 +78,12 @@ removeSlashes(`\\a`); // "a"
 
 Although it should generally not be necessary because all escapes are automatically handled, escape decoding can be customized using the `getUnescaped` option.
 
-```ts
-import { getUnescapedDefault } from 'slashes';
+The following is the default, equivalent to not setting the `getUnescaped` option.
 
-removeSlashes('\\n', {
-  getUnescaped: (sequence) => (sequence === '\\n' ? '\r\n' : null),
-}); // "\r\n"
+```ts
+import { getUnescapedAny } from 'slashes';
+
+removeSlashes('\\n', { getUnescaped: getUnescapedAny }); // "\n"
 ```
+
+The `getUnescapedAny` implementation is the only one included.

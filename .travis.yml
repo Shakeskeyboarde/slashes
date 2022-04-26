@@ -28,11 +28,3 @@ deploy:
     on:
       condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+-[^[:space:]]+$
       all_branches: true
-  - provider: pages
-    skip_cleanup: true
-    keep_history: true
-    local_dir: docs
-    github_token: $GITHUB_TOKEN
-    on:
-      condition: $TRAVIS_BRANCH =~ ^(main|v[0-9]+\.[0-9]+\.[0-9]+)$
-      all_branches: true
