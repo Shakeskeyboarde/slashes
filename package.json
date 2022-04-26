@@ -1,12 +1,16 @@
 {
   "name": "slashes",
   "description": "Add or remove backslashes (escape or unescape).",
+  "version": "3.0.2",
+  "license": "ISC",
   "author": {
     "name": "Chris Ackerman",
     "email": "chris@topher.land"
   },
-  "license": "ISC",
-  "version": "3.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shakeskeyboarde/slashes.git"
+  },
   "types": "lib/commonjs/index.d.ts",
   "module": "./lib/module/index.js",
   "main": "lib/commonjs/index.js",
