@@ -8,13 +8,12 @@
  * - `\t` Tab
  * - `\v` Vertical Tab
  * - `\0` Null
- * - `'` Single quote
  * - `"` Double quote
  *
  * NOTE: Backslashes are always escaped by the `addSlashes` function and do
  *       not need to be escaped by the `getEscaped` implementation.
  */
-const getEscapedDefault = (char: string): number | `\\${string}` | null => {
+const getEscapedDefault = (char: string): `\\${string}` | null => {
   switch (char) {
     case '\b':
       return '\\b';
@@ -27,10 +26,9 @@ const getEscapedDefault = (char: string): number | `\\${string}` | null => {
     case '\t':
       return '\\t';
     case '\v':
-      return '\\v';
+      return '\\u000b';
     case '\0':
-      return '\\0';
-    case `'`:
+      return '\\u0000';
     case `"`:
       return `\\${char}`;
   }

@@ -2,11 +2,10 @@ import { getEscapedDefault } from './get-escaped-default';
 
 type AddSlashesOptions = {
   /**
-   * Get the escaped string replacement for a character. Numbers
-   * are converted to Unicode point escapes (eg. `\u{1F60A}`), strings are
-   * used as direct replacements, and `null` will not replace the character.
+   * Get the escaped string replacement for a character. Return `null` not
+   * leave the character unencoded.
    */
-  readonly getEscaped?: (char: string) => number | `\\${string}` | null;
+  readonly getEscaped?: (char: string) => `\\${string}` | null;
 };
 
 /**
@@ -21,7 +20,6 @@ type AddSlashesOptions = {
  * - `\t` Tab
  * - `\v` Vertical Tab
  * - `\0` Null
- * - `'` Single quote
  * - `"` Double quote
  * - `\` Backslash
  *
@@ -41,10 +39,8 @@ const addSlashes = (str: string, { getEscaped = getEscapedDefault }: AddSlashesO
 
     if (escape == null) {
       result += char;
-    } else if (typeof escape !== 'number') {
-      result += escape;
     } else {
-      result += `\\u{${escape.toString(16)}}`;
+      result += escape;
     }
   }
 
