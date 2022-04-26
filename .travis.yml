@@ -15,8 +15,7 @@ deploy:
       condition: $TRAVIS_BRANCH =~ ^(main|v[0-9]+\.[0-9]+\.[0-9]+)$
   - provider: npm
     email: chris@topher.land
-    api_key:
-      secure: ARLoqWwqQyo2+SPJua5dD7s6oOdTMVtHgt+i9ToZx8adTGhnR4SKwYflAw6tpJpYmIkxq5xWb6IQEi3G/mx41U/r1xOI9SEDwUX7I1eYkEyIhe3L8VwWT1jcxgpoxEc44H6dYbxAj+WljdozwuM0Ksm6GbkXh+4F5aChfW4sj38=
+    api_key: $NPM_API_TOKEN
     on:
       all_branches: true
       condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$
@@ -24,8 +23,7 @@ deploy:
     skip_cleanup: true
   - provider: npm
     email: chris@topher.land
-    api_key:
-      secure: ARLoqWwqQyo2+SPJua5dD7s6oOdTMVtHgt+i9ToZx8adTGhnR4SKwYflAw6tpJpYmIkxq5xWb6IQEi3G/mx41U/r1xOI9SEDwUX7I1eYkEyIhe3L8VwWT1jcxgpoxEc44H6dYbxAj+WljdozwuM0Ksm6GbkXh+4F5aChfW4sj38=
+    api_key: $NPM_API_TOKEN
     on:
       all_branches: true
       condition: $TRAVIS_TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+-[^[:space:]]+$
