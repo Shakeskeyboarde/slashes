@@ -10,7 +10,7 @@ type AddSlashesOptions = {
    * - Return `true` to encode the character to its default escape sequence.
    * - Return a string to provide a custom escape sequence.
    */
-  readonly getEscaped?: (char: string) => EscapeSequence | boolean | '';
+  readonly getEscaped?: (char: string) => EscapeSequence | boolean;
 };
 
 /**
@@ -35,17 +35,12 @@ const addSlashes = (str: string, { getEscaped = getEscapedJsonUnsafe }: AddSlash
   let result = '';
 
   for (const char of str) {
-    if (char === '\\') {
-      result += '\\\\';
-      continue;
-    }
-
     const escaped = getEscaped(char);
 
     if (!escaped) {
       result += char;
-    } else if (escaped === true) {
-      result += getEscapedAny(char);
+    } else if (escaped === true || escaped.length < 2) {
+      result += getEscapedAny(char) || char;
     } else {
       result += escaped;
     }

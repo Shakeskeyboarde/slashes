@@ -4,7 +4,7 @@ import { type EscapeSequence } from './types/escape-sequence';
  * Get escapes for any character, using JSON-safe single letter sequences, and
  * ES5 unicode escapes (eg. `\u0100`).
  */
-const getEscapedAny = (char: string): EscapeSequence | '' => {
+const getEscapedAny = (char: string): EscapeSequence | false => {
   switch (char) {
     case '\b':
       return '\\b';
@@ -17,6 +17,7 @@ const getEscapedAny = (char: string): EscapeSequence | '' => {
     case '\t':
       return '\\t';
     case `"`:
+    case '\\':
       return `\\${char}`;
   }
 
@@ -26,7 +27,7 @@ const getEscapedAny = (char: string): EscapeSequence | '' => {
     unicode = `\\u${('000' + char.charCodeAt(index).toString(16)).slice(-4)}${unicode}` as const;
   }
 
-  return unicode;
+  return unicode || false;
 };
 
 export { getEscapedAny };

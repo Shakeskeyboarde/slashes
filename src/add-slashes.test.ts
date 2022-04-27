@@ -6,4 +6,5 @@ test(`add slashes to default character set`, () => {
 
 test(`use getEscaped override`, () => {
   expect(addSlashes('abc', { getEscaped: (char) => `\\${char}` })).toBe('\\a\\b\\c');
+  expect(addSlashes('a', { getEscaped: () => `\\` })).toBe('\\u0061');
 });

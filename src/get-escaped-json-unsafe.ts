@@ -24,6 +24,7 @@ const getEscapedJsonUnsafe = (char: string): boolean => {
     case '\v':
     case '\0':
     case `"`:
+    case '\\':
       return true;
   }
 
