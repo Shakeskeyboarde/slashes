@@ -17,10 +17,11 @@ describe('handle all escape sequence types', () => {
     ['©', '\\xa9'],
     ['a', '\\x61'],
     ['a', '\\141'],
+    ['', '\\'],
   ];
 
   cases.forEach(([to, from]) => {
-    test(`convert ${from} to ${to}`, () => {
+    test(`convert "${JSON.stringify(from).slice(1, -1)}" to "${to}"`, () => {
       expect(removeSlashes(from)).toBe(to);
     });
   });

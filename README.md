@@ -20,7 +20,7 @@ removeSlashes(`foo\\nbar`); // "foo\nbar"
 
 ## Adding slashes
 
-By default, `addSlashes` will escape the following characters.
+By default, `addSlashes` will escape (encode) the following characters.
 
 - Backspace (`\b`)
 - Form Feed (`\f`)
@@ -67,7 +67,7 @@ getEscaped(character: string): boolean | `\\${string}`
 
 ## Removing slashes
 
-The `removeSlashes` function will _always_ remove one layer of slashes.
+Be default, `removeSlashes` will unescape (decode) all Javascript escape sequences.
 
 ```ts
 // Handles letter escapes
@@ -80,13 +80,13 @@ removeSlashes('\u000a'); // "\n"
 removeSlashes('\x0a'); // "\n"
 // Handles octal escapes
 removeSlashes('\12'); // "\n"
-// The slash is removed if the escape sequence is invalid
+// Handles any other backslash sequence by removing the leading slash
 removeSlashes(`\\a`); // "a"
 ```
 
 ### Custom decoding
 
-Although it should generally not be necessary because all escapes are automatically handled, escape decoding can be customized using the `getUnescaped` option.
+Although it should generally not be necessary because all escapes are handled by default, escape decoding can be customized using the `getUnescaped` option.
 
 The following is the default, equivalent to not setting the `getUnescaped` option.
 

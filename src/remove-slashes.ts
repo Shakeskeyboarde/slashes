@@ -6,8 +6,8 @@ type RemoveSlashesOptions = {
 };
 
 /**
- * Remove one layer of slashes, decoding any valid escape sequences into their
- * corresponding characters (eg. `\\n` will become a newline).
+ * Remove one layer of slashes, decoding any Javascript escape sequences into
+ * their corresponding characters (eg. `\\n` would become a newline).
  *
  * Use the `getUnescaped` option to customize escape sequence decoding.
  */
