@@ -1,7 +1,7 @@
 {
   "name": "slashes",
   "description": "Add or remove backslashes (escape or unescape).",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "license": "ISC",
   "author": {
     "name": "Chris Ackerman",

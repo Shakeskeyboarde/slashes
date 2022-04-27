@@ -9,7 +9,7 @@ Add or remove backslashes (escape or unescape).
 [![coverage status](https://badgen.net/coveralls/c/github/Shakeskeyboarde/slashes/main)](https://coveralls.io/github/Shakeskeyboarde/slashes)
 [![bundle size](https://badgen.net/bundlephobia/minzip/slashes?label=size)](https://bundlephobia.com/result?p=slashes)
 
-# Getting Started
+# Getting started
 
 ```ts
 import { addSlashes, removeSlashes } from 'slashes';
@@ -18,7 +18,7 @@ addSlashes(`foo\nbar`); // "foo\\nbar"
 removeSlashes(`foo\\nbar`); // "foo\nbar"
 ```
 
-## Adding Slashes
+## Adding slashes
 
 By default, `addSlashes` will escape the following JSON-unsafe characters.
 
@@ -42,6 +42,8 @@ This default character set is the characters which cannot be included in a JSON 
 const jsonString = `{ "value": "${encoded}" }`;
 ```
 
+### Custom encoding
+
 Escape encoding can be customized using the `getEscaped` option.
 
 The following is the default, equivalent to not setting the `getEscaped` option.
@@ -57,7 +59,13 @@ Included `getEscaped` implementations:
 - `getEscapedJsonUnsafe` - (Default) Encode characters which cannot be used between quotes in a JSON string.
 - `getEscapedAny` - Encode _ANY_ character to a single letter (eg. `\n`) or an ES5 Unicode (eg. `\u0100`) escape sequence.
 
-## Removing Slashes
+A custom `getEscaped` receives one character (may be unicode) at a time. It can return `true` to use the standard escape sequence, `false` to not escape the character, or a string to provide a custom escape sequence (must begin with a backslash).
+
+```ts
+getEscaped(character: string): boolean | `\\${string}` | ''
+```
+
+## Removing slashes
 
 The `removeSlashes` function will _always_ remove one layer of slashes.
 
@@ -76,6 +84,8 @@ removeSlashes('\12'); // "\n"
 removeSlashes(`\\a`); // "a"
 ```
 
+### Custom decoding
+
 Although it should generally not be necessary because all escapes are automatically handled, escape decoding can be customized using the `getUnescaped` option.
 
 The following is the default, equivalent to not setting the `getUnescaped` option.
@@ -86,4 +96,12 @@ import { getUnescapedAny } from 'slashes';
 removeSlashes('\\n', { getUnescaped: getUnescapedAny }); // "\n"
 ```
 
-The `getUnescapedAny` implementation is the only one included.
+Included `getUnescaped` implementations:
+
+- `getUnescapedAny` - Decode _ANY_ Javascript supported escape sequence.
+
+A custom `getUnescaped` implementation receives the escape sequence as the first argument, and the escape sequence code point number or `null` (for single letter escape sequences) as the second argument. It can return `true` to use standard decoding, `false` to treat the sequence as invalid (only removes the leading backslash), or a string to provide a custom decoded value for the escape sequence.
+
+```ts
+getUnescaped(sequence: `\\${string}`, code: number | null): boolean | string
+```
