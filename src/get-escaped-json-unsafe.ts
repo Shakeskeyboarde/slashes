@@ -1,6 +1,6 @@
 /**
  * Get escapes for the default escape set, which is all characters that cannot
- * be included in a JSON string literal.
+ * be used between double quotes in a JSON string.
  *
  * - `\b` Backspace
  * - `\f` Linefeed

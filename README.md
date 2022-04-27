@@ -20,7 +20,7 @@ removeSlashes(`foo\\nbar`); // "foo\nbar"
 
 ## Adding slashes
 
-By default, `addSlashes` will escape the following JSON-unsafe characters.
+By default, `addSlashes` will escape the following characters.
 
 - Backspace (`\b`)
 - Form Feed (`\f`)
@@ -33,13 +33,13 @@ By default, `addSlashes` will escape the following JSON-unsafe characters.
 - Backslash (`\`)
 
 ```ts
-const encoded = addSlashes(`\n`); // "\\n"
+const escaped = addSlashes(`\n`); // "\\n"
 ```
 
-This default character set is the characters which cannot be included in a JSON string literal.
+This default character set is the characters which cannot be used between double quotes in a JSON string.
 
 ```ts
-const jsonString = `{ "value": "${encoded}" }`;
+const jsonString = `{ "key": "${escaped}" }`;
 ```
 
 ### Custom encoding
@@ -56,7 +56,7 @@ addSlashes(`\n`, { getEscaped: getEscapedJsonUnsafe }); // "\\n"
 
 Included `getEscaped` implementations:
 
-- `getEscapedJsonUnsafe` - (Default) Encode characters which cannot be used between quotes in a JSON string.
+- `getEscapedJsonUnsafe` - (Default) Encode characters which cannot be used between double quotes in a JSON string.
 - `getEscapedAny` - Encode _ANY_ character to a single letter (eg. `\n`) or an ES5 Unicode (eg. `\u0100`) escape sequence.
 
 A custom `getEscaped` receives one character (may be Unicode > 2 bytes) at a time. It can return `true` to use the standard escape sequence, `false` to not escape the character, or a string to provide a custom escape sequence (must begin with a backslash and be at least 2 characters long).
