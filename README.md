@@ -36,10 +36,10 @@ By default, `addSlashes` will escape the following characters.
 const escaped = addSlashes(`\n`); // "\\n"
 ```
 
-This default character set is the characters which cannot be used between double quotes in a JSON string.
+The default character set are characters which cannot be used between double quotes in a JSON string.
 
 ```ts
-const jsonString = `{ "key": "${escaped}" }`;
+const validJsonString = `{ "key": "${escaped}" }`;
 ```
 
 ### Custom encoding
@@ -51,7 +51,7 @@ The following is the default, equivalent to not setting the `getEscaped` option.
 ```ts
 import { getEscapedJsonUnsafe } from 'slashes';
 
-addSlashes(`\n`, { getEscaped: getEscapedJsonUnsafe }); // "\\n"
+addSlashes('...', { getEscaped: getEscapedJsonUnsafe });
 ```
 
 Included `getEscaped` implementations:
@@ -62,7 +62,7 @@ Included `getEscaped` implementations:
 A custom `getEscaped` receives one character (may be Unicode > 2 bytes) at a time. It can return `true` to use the standard escape sequence, `false` to not escape the character, or a string to provide a custom escape sequence (must begin with a backslash and be at least 2 characters long).
 
 ```ts
-getEscaped(character: string): boolean | `\\${string}` | ''
+getEscaped(character: string): boolean | `\\${string}`
 ```
 
 ## Removing slashes
@@ -93,14 +93,14 @@ The following is the default, equivalent to not setting the `getUnescaped` optio
 ```ts
 import { getUnescapedAny } from 'slashes';
 
-removeSlashes('\\n', { getUnescaped: getUnescapedAny }); // "\n"
+removeSlashes('...', { getUnescaped: getUnescapedAny });
 ```
 
 Included `getUnescaped` implementations:
 
 - `getUnescapedAny` - Decode _ANY_ Javascript supported escape sequence.
 
-A custom `getUnescaped` implementation receives the escape sequence as the first argument, and the escape sequence code point number or `null` (for single letter escape sequences) as the second argument. It can return `true` to use standard decoding, `false` to treat the sequence as invalid (only removes the leading backslash), or a string to provide a custom decoded value for the escape sequence.
+A custom `getUnescaped` implementation receives the escape sequence as the first argument, and the escape sequence code point number or `null` (for single letter escape sequences) as the second argument. It can return `true` to use the standard decoding, `false` to treat the sequence as invalid (only removes the leading backslash), or a string (non-zero length) to provide a custom decoded value for the escape sequence.
 
 ```ts
 getUnescaped(sequence: `\\${string}`, code: number | null): boolean | string
