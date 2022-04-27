@@ -28,4 +28,5 @@ describe('handle all escape sequence types', () => {
 
 test('use getUnescaped override', () => {
   expect(removeSlashes('\\r\\n\\t', { getUnescaped: (sequence) => `${sequence}`.slice(1) })).toBe('rnt');
+  expect(removeSlashes('\\r\\n\\t\\a', { getUnescaped: () => true })).toBe('\r\n\ta');
 });

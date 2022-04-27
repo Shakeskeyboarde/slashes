@@ -2,7 +2,7 @@ import { getUnescapedAny } from './get-unescaped-any';
 import { type EscapeSequence } from './types/escape-sequence';
 
 type RemoveSlashesOptions = {
-  readonly getUnescaped?: (sequence: EscapeSequence, code: number | null) => string | false;
+  readonly getUnescaped?: (sequence: EscapeSequence, code: number | null) => boolean | string;
 };
 
 /**
@@ -12,30 +12,41 @@ type RemoveSlashesOptions = {
  * Use the `getUnescaped` option to customize escape sequence decoding.
  */
 const removeSlashes = (source: string, { getUnescaped = getUnescapedAny }: RemoveSlashesOptions = {}): string => {
-  const rx = /(?:\\(u([0-9a-f]{4})|u\{([0-9a-f]+)\}|x([0-9a-f]{2})|(\d{1,3})|([\s\S]|$))|[\s\S])/giu;
+  const rx = /(?:(\\(u([0-9a-f]{4})|u\{([0-9a-f]+)\}|x([0-9a-f]{2})|(\d{1,3})|([\s\S]|$)))|([\s\S]))/giu;
 
   let match: RegExpExecArray | null;
   let result = '';
 
   while (null != (match = rx.exec(source))) {
-    const [sequence, escapedFallback, unicode, unicodePoint, hex, octal, char] = match;
+    const [, sequence, fallback, unicode, unicodePoint, hex, octal, char, literal] = match;
+
+    if (literal) {
+      result += literal;
+      continue;
+    }
+
+    let code: number | null;
+
+    if (char != null) {
+      code = null;
+    } else if (octal) {
+      code = Number.parseInt(octal, 8);
+    } else {
+      code = Number.parseInt(unicodePoint || unicode || hex, 16);
+    }
 
     try {
-      if (char != null) {
-        result += getUnescaped(sequence as EscapeSequence, null) || escapedFallback;
-      } else if (octal) {
-        result += getUnescaped(sequence as EscapeSequence, Number.parseInt(octal, 8)) || escapedFallback;
-      } else {
-        const code = unicodePoint || unicode || hex;
+      const unescaped = getUnescaped(sequence as EscapeSequence, code);
 
-        if (code) {
-          result += getUnescaped(sequence as EscapeSequence, Number.parseInt(code, 16)) || escapedFallback;
-        } else {
-          result += sequence;
-        }
+      if (!unescaped) {
+        result += fallback;
+      } else if (unescaped === true) {
+        result += getUnescapedAny(sequence as EscapeSequence, code) || fallback;
+      } else {
+        result += unescaped;
       }
     } catch (_error) {
-      result += escapedFallback;
+      result += fallback;
     }
   }
 
