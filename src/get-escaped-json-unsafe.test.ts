@@ -1,4 +1,4 @@
-import { getEscapedJsonUnsafe } from './get-escaped-json-unsafe';
+import { getEscapedJsonUnsafe } from './get-escaped-json-unsafe.js';
 
 describe('true for JSON unsafe characters', () => {
   [...`\b\f\n\r\t\v\0"`].forEach((char) => {

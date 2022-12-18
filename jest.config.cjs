@@ -3,20 +3,31 @@
  * https://jestjs.io/docs/configuration
  */
 
+const ignorePatterns = ['/node_modules/', '/\\.', '/_', '/index\\.tsx?$', '\\.d\\.ts$'];
+
 /** @type {import('@jest/types').Config.InitialOptions} */
 module.exports = {
   bail: 0,
-  clearMocks: true,
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.ts', 'src/**/*.tsx', '!**/index.ts', '!**/types/**'],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}'],
   coverageDirectory: 'out/coverage',
+  coveragePathIgnorePatterns: ignorePatterns,
   coverageProvider: 'v8',
-  coverageReporters: ['text-summary', 'json-summary', 'html', 'lcov'],
+  coverageReporters: ['text-summary', 'html-spa', 'lcov'],
   coverageThreshold: { global: { branches: 50, functions: 50, lines: 50, statements: 50 } },
-  moduleNameMapper: {},
-  preset: 'ts-jest/presets/js-with-babel',
-  roots: ['<rootDir>/src'],
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  moduleNameMapper: {
+    // Remove the .js extension (required for ES Module support) from TS file imports.
+    '^(\\.{1,2}/.*)\\.jsx?$': '$1',
+  },
+  restoreMocks: true,
+  roots: ['src'],
+  setupFilesAfterEnv: [],
   testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ignorePatterns,
+  transform: {
+    '^.+\\.[tj]sx?$': ['ts-jest', { diagnostics: { ignoreCodes: [151001] }, useESM: true }],
+  },
   transformIgnorePatterns: [],
   verbose: true,
 };

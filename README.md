@@ -2,13 +2,6 @@
 
 Add or remove backslashes (escape or unescape).
 
-[![npm version](https://badgen.net/npm/v/slashes?icon=npm&label=version)](https://www.npmjs.com/package/slashes)
-[![npm downloads](https://badgen.net/npm/dw/slashes?icon=npm&color=blue&label=downloads)](https://www.npmjs.com/package/slashes)
-[![github stars](https://badgen.net/github/stars/Shakeskeyboarde/slashes?icon=github)](https://github.com/Shakeskeyboarde/slashes)
-[![build status](https://badgen.net/travis/Shakeskeyboarde/slashes?icon=travis&label=build)](https://www.travis-ci.com/github/Shakeskeyboarde/slashes)
-[![coverage status](https://badgen.net/coveralls/c/github/Shakeskeyboarde/slashes/main)](https://coveralls.io/github/Shakeskeyboarde/slashes)
-[![bundle size](https://badgen.net/bundlephobia/minzip/slashes?label=size)](https://bundlephobia.com/result?p=slashes)
-
 # Getting started
 
 ```ts

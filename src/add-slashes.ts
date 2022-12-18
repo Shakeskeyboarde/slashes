@@ -1,6 +1,6 @@
-import { getEscapedAny } from './get-escaped-any';
-import { getEscapedJsonUnsafe } from './get-escaped-json-unsafe';
-import { type EscapeSequence } from './types/escape-sequence';
+import { getEscapedAny } from './get-escaped-any.js';
+import { getEscapedJsonUnsafe } from './get-escaped-json-unsafe.js';
+import { type EscapeSequence } from './types/escape-sequence.js';
 
 type AddSlashesOptions = {
   /**
@@ -31,7 +31,8 @@ type AddSlashesOptions = {
  * Use the `getEscaped` option to encode additional characters or to override
  * the default escapes.
  */
-const addSlashes = (str: string, { getEscaped = getEscapedJsonUnsafe }: AddSlashesOptions = {}): string => {
+const addSlashes = (str: string, options: AddSlashesOptions = {}): string => {
+  const { getEscaped = getEscapedJsonUnsafe } = options;
   let result = '';
 
   for (const char of str) {

@@ -1,5 +1,5 @@
-import { getUnescapedAny } from './get-unescaped-any';
-import { type EscapeSequence } from './types/escape-sequence';
+import { getUnescapedAny } from './get-unescaped-any.js';
+import { type EscapeSequence } from './types/escape-sequence.js';
 
 type RemoveSlashesOptions = {
   readonly getUnescaped?: (sequence: EscapeSequence, code: number | null) => boolean | string;
@@ -11,7 +11,8 @@ type RemoveSlashesOptions = {
  *
  * Use the `getUnescaped` option to customize escape sequence decoding.
  */
-const removeSlashes = (source: string, { getUnescaped = getUnescapedAny }: RemoveSlashesOptions = {}): string => {
+const removeSlashes = (source: string, options: RemoveSlashesOptions = {}): string => {
+  const { getUnescaped = getUnescapedAny } = options;
   const rx = /(?:(\\(u([0-9a-f]{4})|u\{([0-9a-f]+)\}|x([0-9a-f]{2})|(\d{1,3})|([\s\S]|$)))|([\s\S]))/giu;
 
   let match: RegExpExecArray | null;
@@ -32,7 +33,7 @@ const removeSlashes = (source: string, { getUnescaped = getUnescapedAny }: Remov
     } else if (octal) {
       code = Number.parseInt(octal, 8);
     } else {
-      code = Number.parseInt(unicodePoint || unicode || hex, 16);
+      code = Number.parseInt((unicodePoint || unicode || hex) as string, 16);
     }
 
     try {
