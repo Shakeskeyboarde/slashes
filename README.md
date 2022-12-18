@@ -2,6 +2,9 @@
 
 Add or remove backslashes (escape or unescape).
 
+[![build](https://github.com/Shakeskeyboarde/slashes/actions/workflows/build.yml/badge.svg)](https://github.com/Shakeskeyboarde/slashes/actions/workflows/build.yml)
+[![codecov](https://codecov.io/gh/Shakeskeyboarde/slashes/branch/main/graph/badge.svg?token=E2VYI8XJLB)](https://codecov.io/gh/Shakeskeyboarde/slashes)
+
 # Getting started
 
 ```ts

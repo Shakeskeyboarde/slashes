@@ -31,12 +31,12 @@ jobs:
       - name: Pack
         run: npm pack
 
-      # - name: Publish (CodeCov)
-      #   uses: codecov/codecov-action@v3
-      #   with:
-      #     files: ./out/coverage/lcov.info
-      #     fail_ci_if_error: true
-      #     verbose: true
+      - name: Publish (CodeCov)
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./out/coverage/lcov.info
+          fail_ci_if_error: true
+          verbose: true
 
       - name: Publish (NPM)
         continue-on-error: true
