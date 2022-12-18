@@ -1,4 +1,4 @@
-import { type EscapeSequence } from './types/escape-sequence';
+import { type EscapeSequence } from './types/escape-sequence.js';
 
 /**
  * Get escapes for any character, using JSON-safe single letter sequences, and

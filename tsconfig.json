@@ -1,25 +1,20 @@
 // Modern code (to be polyfilled) and explicit ambient types.
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "ES2020",
-    "target": "ES2021",
-    "lib": ["ES2021"],
+    "module": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "types": ["jest"],
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
     "strict": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "isolatedModules": true,
-    "forceConsistentCasingInFileNames": true,
     "downlevelIteration": true,
     "useDefineForClassFields": true,
-    "declaration": true,
-    "sourceMap": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "rootDir": "src",
-    "outDir": "lib",
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

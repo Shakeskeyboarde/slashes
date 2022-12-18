@@ -1,4 +1,4 @@
-import { type EscapeSequence } from './types/escape-sequence';
+import { type EscapeSequence } from './types/escape-sequence.js';
 
 const getUnescapedAny = (sequence: EscapeSequence, code: number | null): string | false => {
   if (code != null) {

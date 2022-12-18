@@ -1,0 +1,3 @@
+tsc --noEmit
+eslint --max-warnings=0 src
+del-cli out/coverage && jest --no-cache --passWithNoTests

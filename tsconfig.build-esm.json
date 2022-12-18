@@ -1,11 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "outDir": "lib/esm",
     "noEmit": false,
     "removeComments": true,
-    "module": "commonjs",
-    "outDir": "lib/commonjs"
+    "sourceMap": true
   },
-  "files": ["src/index.ts"],
-  "include": []
+  "include": ["src/**/*.d.ts"],
+  "files": ["src/index.ts"]
 }

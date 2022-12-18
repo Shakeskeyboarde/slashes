@@ -7,3 +7,7 @@ dist
 .DS_Store
 .env*
 *.log
+*.tar
+*.gz
+*.tgz
+*.zip

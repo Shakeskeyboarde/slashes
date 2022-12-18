@@ -1,4 +1,4 @@
-import { getEscapedAny } from './get-escaped-any';
+import { getEscapedAny } from './get-escaped-any.js';
 
 test('encode supplementary characters', () => {
   expect(getEscapedAny('😊')).toBe('\\ud83d\\ude0a');

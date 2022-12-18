@@ -1,0 +1,3 @@
+del-cli out/types && tsc --project tsconfig.build-types.json
+del-cli out/esm && tsc --project tsconfig.build-esm.json
+del-cli out/cjs && tsc --project tsconfig.build-cjs.json && echo '{ "type": "commonjs" }' > lib/cjs/package.json

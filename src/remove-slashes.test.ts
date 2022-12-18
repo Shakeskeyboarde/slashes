@@ -1,4 +1,4 @@
-import { removeSlashes } from './remove-slashes';
+import { removeSlashes } from './remove-slashes.js';
 
 test(`remove slashes`, () => {
   expect(removeSlashes(`a\\b\\f\\n\\rb\\t\\v\\0\\'\\"\\\\`)).toBe(`a\b\f\n\rb\t\v\0'"\\`);
@@ -18,7 +18,7 @@ describe('handle all escape sequence types', () => {
     ['a', '\\x61'],
     ['a', '\\141'],
     ['', '\\'],
-  ];
+  ] as const;
 
   cases.forEach(([to, from]) => {
     test(`convert "${JSON.stringify(from).slice(1, -1)}" to "${to}"`, () => {
